@@ -34,15 +34,15 @@ class Queue:
         self.A.append(item)
     
     def dequeue(self):
-        print('dequeue(): queue start', self.start)
-        print('dequeue(): queue len',len(self.A))
+        #print('dequeue(): queue start', self.start)
+        #print('dequeue(): queue len',len(self.A))
         e = self.A[self.start]
         self.start += 1
         if self.start > 5 and self.start > len(self.A)/2:
             self.A = self.A[self.start:]
             self.start = 0
-        print('dequeue(): queue start', self.start)
-        print('dequeue(): queue len',len(self.A))
+        #print('dequeue(): queue start', self.start)
+        #print('dequeue(): queue len',len(self.A))
         return e
     
     #def __eq__(self, item):
@@ -70,39 +70,42 @@ class NPuzzle(object):
         zero first, and check if zero can be moved in up, down, left, right 
         directions. N-puzzle has edge and does not wrap around board. Returns 
         a list of available actions."""
-        x, y = np.where(state.board == 0)
+        tmp = np.array(state.board).reshape(int(sqrt(len(state.board))),int(sqrt(len(state.board))))
+        x, y = np.where(tmp == 0)
         action_list = []
         if (x > 0):
             action_list.append('UP')
-        if (x < state.board.shape[0] - 1):
+        if (x < tmp.shape[0] - 1):
             action_list.append('DOWN')
         if (y > 0):
             action_list.append('LEFT')
-        if (y < state.board.shape[1] - 1):
+        if (y < tmp.shape[1] - 1):
             action_list.append('RIGHT')
         return action_list
     
-    def result(self, board, action):
+    def result(self, state, action):
         """ Returns the NPuzzle board that result from executing the given
         given action on the given NPuzzle board."""
-        x, y = np.where(board.board == 0)
-        new = board.board.copy()
+        tmp = np.array(state.board).reshape(int(sqrt(len(state.board))),int(sqrt(len(state.board))))
+        x, y = np.where(tmp == 0)
+        new = tmp.copy()
         if (action == 'UP'):
             new[x, y], new[x-1, y] = new[x-1, y], new[x, y]
-            return new
+            return NPuzzle(new.reshape(new.size).tolist())
         if (action == 'DOWN'):
             new[x, y], new[x+1, y] = new[x+1, y], new[x, y]
-            return new
+            return NPuzzle(new.reshape(new.size).tolist())
         if (action == 'LEFT'):
             new[x, y], new[x, y-1] = new[x, y-1], new[x, y]
-            return new
+            return NPuzzle(new.reshape(new.size).tolist())
         if (action == 'RIGHT'):
             new[x, y], new[x, y+1] = new[x, y+1], new[x, y]
-            return new
+            return NPuzzle(new.reshape(new.size).tolist())
 
-    def goal_test(self, board):
+    def goal_test(self, state):
         """ Test if NPuzzle is at the end state [0,1,2,...,N-1]."""
-        if np.array_equal(np.ravel(board.board), np.arange(board.board.size)):
+        if state.board == np.arange(len(state.board)).tolist():
+        #if np.array_equal(np.ravel(board.board), np.arange(board.board.size)):
             return True
         return False
       
@@ -110,7 +113,7 @@ class NPuzzle(object):
         return 0
     
     def __repr__(self):
-        return np.array2string(self.board)
+        return str(self.board)#np.array2string(self.board)
 
 class NPuzzleState(object):
  
@@ -204,10 +207,12 @@ class Solver:
         while not frontier.empty():
             print('\nIn Loop...')
             node = frontier.dequeue()
-            print(node.state)
+            print('node object?\n', node)
+            print('exploring:\n', node.state)
             explored.add(node)
             print('\nNode added to explored set()\n')
             if node.state.goal_test(node.state):
+                print('checking goal test')
                 return self._success(node)
             print('after goal_test')
             print('length of frontier', len(frontier))
@@ -216,6 +221,8 @@ class Solver:
                 print('Neighbor node is NOT in frontier', neighbor not in frontier)
                 print('Neighbor node is NOT in explored', neighbor not in explored)
                 print('frontier length', len(frontier))
+                print('neighbors is\n', neighbor.state)
+                print('neighbors object?\n', neighbor)
                 if neighbor not in frontier and neighbor not in explored:
                     print('PROGRESSSSSS????')
                     '''TODO: first pass okay. second pass throwing an error. 
@@ -259,7 +266,7 @@ if __name__ == '__main__':
     #print('\nTest 2 board: \n', t2.board)
     #print('\nTest 2 goal_test: \n', t2.goal_test(t2))
     #print(t2.actions(t2))
-    t3 = NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
+    t3 = NPuzzle([1,2,0,3,4,5,6,7,8])#NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
     #print('\nTest 3 board:\n', t3.board)
     #print(t3.actions(t3))
     bfs = Solver(t3)
