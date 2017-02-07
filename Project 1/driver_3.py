@@ -34,21 +34,23 @@ class Queue:
         self.A.append(item)
     
     def dequeue(self):
-        print('queue start', self.start)
-        print('queue len',len(self.A))
+        print('dequeue(): queue start', self.start)
+        print('dequeue(): queue len',len(self.A))
         e = self.A[self.start]
         self.start += 1
         if self.start > 5 and self.start > len(self.A)/2:
             self.A = self.A[self.start:]
             self.start = 0
+        print('dequeue(): queue start', self.start)
+        print('dequeue(): queue len',len(self.A))
         return e
     
-    def __eq__(self, item):
-        return set(item.A) == set(self.A)
+    #def __eq__(self, item):
+    #    return set(item.A) == set(self.A)
     
     def __contains__(self, item):
-        if self.A is None:
-            raise TypeError('not indexable')
+        #if self.A is None:
+        #    raise TypeError('not indexable')
         #return (item in )
         return item in self.A[self.start:]
     
@@ -193,37 +195,35 @@ class Solver:
         return False
 
     def bfs(self):
-        #return None #Success or Failure
         print('Running Breadth First Search...\n')
         frontier = Queue()
         frontier.enqueue(self.nPuzzleState)
-        #frontier.enqueue(['1231245'])
         print('Frontier empty? ', frontier.empty())
-        #print('Frontier List:', frontier)
         explored = set()
-        print('Explored is', explored)
         
         while not frontier.empty():
             print('\nIn Loop...')
             node = frontier.dequeue()
             print(node.state)
-            explored.add(node)#.state)
-            #print(explored)
-            print('\nAdded node to explored:\n')
+            explored.add(node)
+            print('\nNode added to explored set()\n')
             if node.state.goal_test(node.state):
                 return self._success(node)
-            print('\nafter goal_test')
+            print('after goal_test')
             print('length of frontier', len(frontier))
-            print('length of neighbor set', len(node.neighbors(node.state)))
             for neighbor in node.neighbors(node.state):
-                #print(len(neighbor))
-                print('\nlooping through neighbors list')
-                
+                print('\n...Looping through neighbors list...', len(node.neighbors(node.state)))
                 print('Neighbor node is NOT in frontier', neighbor not in frontier)
                 print('Neighbor node is NOT in explored', neighbor not in explored)
+                print('frontier length', len(frontier))
                 if neighbor not in frontier and neighbor not in explored:
                     print('PROGRESSSSSS????')
-                    #frontier.enqueue(neighbor)
+                    '''TODO: first pass okay. second pass throwing an error. 
+                    neighbor not in frontier. <= error
+                    problem w/ Queue __contains__? 
+                    Maybe fuck numpy and use lists?'''
+                    frontier.enqueue(neighbor)
+                print('frontier length', len(frontier))
             #print('Out of for loop')        
             #print('frontier length', len(frontier))
             #print(frontier.empty())
