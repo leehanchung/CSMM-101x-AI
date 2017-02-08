@@ -2,7 +2,6 @@
 """
 Created on Sun Jan 22 23:23:23 2017
 
-
 """
 """
 Begin by writing a class to represent the state of the game at a given turn, 
@@ -14,45 +13,10 @@ state class.
 """
 import argparse
 import time
-#import psutil, os
+from math import sqrt
 import numpy as np
-#import queue as queue
-
+from collections import deque
     
-class Queue:
-    
-    def __init__(self):
-        self.A = []
-        self.start = 0
-            
-    def empty(self):
-        return not bool(len(self.A) - self.start)
-    
-    def extend(self, items):
-        self.A.extend(items)              
-           
-    def enqueue(self, item):
-        self.A.append(item)
-    
-    def dequeue(self):
-        e = self.A[self.start]
-        self.start += 1
-        if self.start > 5 and self.start > len(self.A)/2:
-            self.A = self.A[self.start:]
-            self.start = 0
-        return e
-    
-    def __eq__(self, item):
-        return set(item.A) == set(self.A)
-    
-    def __contains__(self, item):
-        return item in self.A[self.start:]
-    
-    def __len__(self):
-        return len(self.A) - self.start
-    
-    def __repr__(self):
-        return str(self.A[self.start:])
     
 class NPuzzle(object):
     
@@ -137,7 +101,7 @@ class NPuzzleState(object):
     
     def solution(self):
         "Return the sequence of actions to go from the root to this node."
-        print('hahiahiahi')
+        #print('hahiahiahi')
         return [node.action for node in self.path()[1:]]
 
     def path(self):
@@ -179,9 +143,9 @@ class Solver:
         self.running_time = 0
         self.max_ram_usage = 0 #resource.getrusage(resource.RUSAGE_SELF).ru_maxrss       
 
-    def _success(self, node):
+    def __success(self, node):
         print('\n\nSuccess!')
-        print(node.solution)
+        #print(node.solution)
         self.cost_of_path = node.path_cost
         self.search_depth = node.depth
         while node.parent is not None:
@@ -198,63 +162,73 @@ class Solver:
         print('running_time', self.running_time)
         print('max_ram_usage', self.max_ram_usage)
         
-    def _failure(self):
+    def __failure(self):
         print('Cannot find solution')
         return False
 
     def bfs(self):
         self.running_time = time.time()
-        frontier = Queue()
-        frontier.enqueue(self.nPuzzleState)
+        #frontier = Queue()
+        frontier = deque()
+        #frontier.enqueue(self.nPuzzleState)
+        frontier.append(self.nPuzzleState)
         self.fringe_size += 1
         explored = set()
-        
-        while not frontier.empty():
-            print('\n\n* * * * *  Looping  * * * * * ')
-            node = frontier.dequeue()
-           
+        print('\n')
+        #while not frontier.empty():
+        while frontier:
+            print('.', end='')
+            #print('\n\n* * * * *  Looping  * * * * * ')
+            #print('\n\nfrontier length', len(frontier))
+            #print('frontier', frontier)
+            #node = frontier.dequeue()
+            node = frontier.popleft()
+            
             self.fringe_size -= 1
             #print('node object?\n', node)
-            print('Exploring:', node.state)
-            print('frontier', frontier)
-            #print(node)
-            explored.add(hash(node))#hash(str(node.state.board)))
+            #print('Exploring:', node.state)
             
-            print(hash(node) == hash(str(node.state.board)))
+            #print(node)
+            explored.add(node)#hash(str(node.state.board)))
+            #print(len(explored))
+            
+            #print(hash(node) == hash(str(node.state.board)))
             #print('\nNode added to explored set()\n')
             if node.state.goal_test(node.state):
-                print('checking goal test')
-                return self._success(node)
+                #print('checking goal test')
+                return self.__success(node)
             self.nodes_expanded += 1
             #print('after goal_test')
             #print('length of frontier', len(frontier))
             
             for neighbor in node.neighbors(node.state):
-                print('\nChecking neighbor:', neighbor.state)
+                #print('\nChecking neighbor:', neighbor.state)
                 #print('\n...Looping through neighbors list...', len(node.neighbors(node.state)))
-                print('Neighbor node is NOT in frontier:', neighbor not in frontier)
-                print('Neighbor node is NOT in explored:', hash(neighbor) not in explored) #hash(str(neighbor.state.board)) not in explored)
+                #print('Neighbor node is NOT in frontier:', neighbor not in frontier)
+                #print('Neighbor node is NOT in explored:', hash(neighbor) not in explored) #hash(str(neighbor.state.board)) not in explored)
                 #print('frontier length', len(frontier))
                 #print('neighbors object?\n', neighbor)
-                if neighbor not in frontier and hash(neighbor) not in explored:
-                    print('Adding to frontier', neighbor.state)
+                if neighbor not in frontier and neighbor not in explored:
+                    print(neighbor.action)
+                    #print('Adding to frontier', neighbor.state)
                     #print(explored)
-                    frontier.enqueue(neighbor)
+                    #frontier.enqueue(neighbor)
+                    frontier.append(neighbor)
                     self.fringe_size += 1
                     if neighbor.depth > self.max_search_depth:
                         self.max_search_depth = neighbor.depth
                     
                 #print('frontier length', len(frontier))
-            print('Frontier is now:', frontier)
+            #print('Frontier is now:', frontier)
         
-            print('wadafaaak')
-            print(len(frontier))
-            print(len(frontier.A))
-            print('max_fringe_size', self.max_fringe_size)
-            print(self.nodes_expanded)
+            #print('wadafaaak')
+            #print(len(frontier))
+            #print(len(frontier.A))
+            #print('max_fringe_size', self.max_fringe_size)
+            #print(self.nodes_expanded)
             if self.fringe_size > self.max_fringe_size:
                         self.max_fringe_size = self.fringe_size
-        return self._failure
+        return self.__failure
     
      
     
@@ -264,26 +238,37 @@ def run():
     parser.add_argument('input_board', nargs='+', type=lambda x:x.split(','))
     args = parser.parse_args()
     
-    # reshaping board into a n by n array
-    board = np.array(args.input_board)
-    board = board.reshape(int(np.sqrt(board.size)), int(np.sqrt(board.size)))
-        
-    print('\nPlaying nPuzzle with Search method: ', args.method)
-    print('Initial nPuzzle Board:\n', board)
-    print('Size of board: ', board.size)
-    #agent(board, method)
+    """ args.input_board reads into a list of list. change format into a list
+    of int"""
+    board = args.input_board
+    board = [int(i) for i in board[0]] 
+            
+    #print('\nPlaying nPuzzle with Search method: ', args.method)
+    game = NPuzzle(board)
+    print('Initial nPuzzle Board:\n', game)
+    #print('Size of board: ', len(board))
+    solution = Solver(game)
+    solution.bfs()
     
     
 if __name__ == '__main__':
-    #run()
-    t = NPuzzle([1,2,5,3,4,0,6,7,8])#NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
+    run()
+    #t0 = NPuzzle([3,1,2,0,4,5,6,7,8])
+    #t1 = NPuzzle([1,2,5,3,4,0,6,7,8])#NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
+    #t2 = NPuzzle([4,1,2,3,5,6,10,7,8,9,0,11,12,13,14,15])
+    #t3 = NPuzzle([1,2,5,3,0,8,6,4,7])
+    """ TODO test cases below either doesnt complete. Maybe change structure to
+    tuples instead of lists to avoid all the hashing wrangling to save time on
+    debugging??"""
+    #t4 = NPuzzle([6,1,8,4,0,2,7,3,5])
+    #t5 = NPuzzle([7,2,4,5,0,6,8,3,1])
     #t3 = NPuzzle([3,1,2,0,4,5,6,7,8])
     #print('\nTest 3 board:\n', t3.board)
     #print(t3.actions(t3))
-    bfs = Solver(t)
+    #bfs = Solver(t3)
     #print('break\n')
-    bfs.bfs()
-    
+    #bfs.bfs()
+    print('\n end')
     
     
     #def dfs(initialState, goalTest):
