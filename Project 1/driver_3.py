@@ -2,7 +2,7 @@
 """
 Created on Sun Jan 22 23:23:23 2017
 
-@author: Han-chung Lee
+
 """
 """
 Begin by writing a class to represent the state of the game at a given turn, 
@@ -13,15 +13,18 @@ configuration of the tiles, delegating the high-level functionality to the
 state class.
 """
 import argparse
+import time
+#import psutil, os
 import numpy as np
 #import queue as queue
 
     
 class Queue:
+    
     def __init__(self):
         self.A = []
         self.start = 0
-    
+            
     def empty(self):
         return not bool(len(self.A) - self.start)
     
@@ -97,7 +100,7 @@ class NPuzzle(object):
             return NPuzzle(new.reshape(new.size).tolist())
 
     def goal_test(self, state):
-        """ Test if NPuzzle is at the end state [0,1,2,...,N-1]."""
+        " Test if NPuzzle is at the end state [0,1,2,...,N-1]."
         if state.board == np.arange(len(state.board)).tolist():
             return True
         return False
@@ -134,14 +137,17 @@ class NPuzzleState(object):
     
     def solution(self):
         "Return the sequence of actions to go from the root to this node."
+        print('hahiahiahi')
         return [node.action for node in self.path()[1:]]
 
     def path(self):
         "Return a list of nodes forming the path from the root to this node."
         node, path_back = self, []
+        #print('path******************************')
         while node:
             path_back.append(node)
             node = node.parent
+            #print(node.state.board)
         return list(reversed(path_back))
 
     # We want for a queue of nodes in breadth_first_search or
@@ -163,44 +169,63 @@ class Solver:
 
     def __init__(self, initialBoard):
         self.nPuzzleState = NPuzzleState(initialBoard)
-        #path_to_goal = []
-        #'''cost_of_path = 0
-        #nodes_expanded = {}
-        #fringe_size = 0
-        #max_fringe_size = 0
-        #search_depth = 0
-        #max_search_depth = 0
-        #running_time = 0
-        #max_ram_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss       
+        self.path_to_goal = []
+        self.cost_of_path = 0
+        self.nodes_expanded = 0
+        self.fringe_size = 0
+        self.max_fringe_size = 0
+        self.search_depth = 0
+        self.max_search_depth = 0
+        self.running_time = 0
+        self.max_ram_usage = 0 #resource.getrusage(resource.RUSAGE_SELF).ru_maxrss       
 
     def _success(self, node):
-        print('Success!')
-        print(node.state.board)
+        print('\n\nSuccess!')
+        print(node.solution)
+        self.cost_of_path = node.path_cost
+        self.search_depth = node.depth
+        while node.parent is not None:
+            self.path_to_goal.insert(0, node.action)
+            node = node.parent
+        self.running_time = time.time() - self.running_time
+        print('path_to_goal', self.path_to_goal)    
+        print('cost_of_path', self.cost_of_path)
+        print('nodes_expended:', self.nodes_expanded)
+        print('fringe_size:', self.fringe_size)
+        print('max_fringe_size:', self.max_fringe_size)
+        print('search_depth', self.search_depth)
+        print('max_search_depth', self.max_search_depth)
+        print('running_time', self.running_time)
+        print('max_ram_usage', self.max_ram_usage)
         
     def _failure(self):
         print('Cannot find solution')
         return False
 
     def bfs(self):
-        print('Running Breadth First Search...\n')
+        self.running_time = time.time()
         frontier = Queue()
         frontier.enqueue(self.nPuzzleState)
-        #print('Frontier empty? ', frontier.empty())
+        self.fringe_size += 1
         explored = set()
         
         while not frontier.empty():
             print('\n\n* * * * *  Looping  * * * * * ')
             node = frontier.dequeue()
+           
+            self.fringe_size -= 1
             #print('node object?\n', node)
             print('Exploring:', node.state)
             print('frontier', frontier)
             #print(node)
             explored.add(hash(node))#hash(str(node.state.board)))
+            
             print(hash(node) == hash(str(node.state.board)))
             #print('\nNode added to explored set()\n')
             if node.state.goal_test(node.state):
                 print('checking goal test')
                 return self._success(node)
+            self.nodes_expanded += 1
             #print('after goal_test')
             #print('length of frontier', len(frontier))
             
@@ -215,10 +240,20 @@ class Solver:
                     print('Adding to frontier', neighbor.state)
                     #print(explored)
                     frontier.enqueue(neighbor)
+                    self.fringe_size += 1
+                    if neighbor.depth > self.max_search_depth:
+                        self.max_search_depth = neighbor.depth
+                    
                 #print('frontier length', len(frontier))
             print('Frontier is now:', frontier)
         
-        print('wadafaaak')
+            print('wadafaaak')
+            print(len(frontier))
+            print(len(frontier.A))
+            print('max_fringe_size', self.max_fringe_size)
+            print(self.nodes_expanded)
+            if self.fringe_size > self.max_fringe_size:
+                        self.max_fringe_size = self.fringe_size
         return self._failure
     
      
@@ -241,19 +276,11 @@ def run():
     
 if __name__ == '__main__':
     #run()
-    #t1 = NPuzzle(np.array([3,1,2,6,0,5,4,8,7]).reshape(3,3))
-    #print('\nTest 1 board: \n', t1.board)
-    #print(t1.actions(t1))
-    #print(t1.result(t1,'RIGHT'))
-    #t2 = NPuzzle(np.array([0,1,2,3,4,5,6,7,8]).reshape(3,3))
-    #print('\nTest 2 board: \n', t2.board)
-    #print('\nTest 2 goal_test: \n', t2.goal_test(t2))
-    #print(t2.actions(t2))
-    t3 = NPuzzle([1,2,0,3,4,5,6,7,8])#NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
+    t = NPuzzle([1,2,5,3,4,0,6,7,8])#NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
     #t3 = NPuzzle([3,1,2,0,4,5,6,7,8])
     #print('\nTest 3 board:\n', t3.board)
     #print(t3.actions(t3))
-    bfs = Solver(t3)
+    bfs = Solver(t)
     #print('break\n')
     bfs.bfs()
     
