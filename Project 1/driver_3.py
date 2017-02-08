@@ -13,7 +13,6 @@ configuration of the tiles, delegating the high-level functionality to the
 state class.
 """
 import argparse
-#from hashlib import sha1
 import numpy as np
 #import queue as queue
 
@@ -24,39 +23,33 @@ class Queue:
         self.start = 0
     
     def empty(self):
-        return not bool(len(self.A) - self.start)#self.__len__
+        return not bool(len(self.A) - self.start)
     
     def extend(self, items):
         self.A.extend(items)              
            
     def enqueue(self, item):
-        #print('hai enqueue')
         self.A.append(item)
     
     def dequeue(self):
-        #print('dequeue(): queue start', self.start)
-        #print('dequeue(): queue len',len(self.A))
         e = self.A[self.start]
         self.start += 1
         if self.start > 5 and self.start > len(self.A)/2:
             self.A = self.A[self.start:]
             self.start = 0
-        #print('dequeue(): queue start', self.start)
-        #print('dequeue(): queue len',len(self.A))
         return e
     
-    #def __eq__(self, item):
-    #    return set(item.A) == set(self.A)
+    def __eq__(self, item):
+        return set(item.A) == set(self.A)
     
     def __contains__(self, item):
-        #if self.A is None:
-        #    raise TypeError('not indexable')
-        #return (item in )
         return item in self.A[self.start:]
     
     def __len__(self):
-        print('check queue length', len(self.A) - self.start)
         return len(self.A) - self.start
+    
+    def __repr__(self):
+        return str(self.A[self.start:])
     
 class NPuzzle(object):
     
@@ -70,7 +63,8 @@ class NPuzzle(object):
         zero first, and check if zero can be moved in up, down, left, right 
         directions. N-puzzle has edge and does not wrap around board. Returns 
         a list of available actions."""
-        tmp = np.array(state.board).reshape(int(sqrt(len(state.board))),int(sqrt(len(state.board))))
+        size = int(sqrt(len(state.board)))
+        tmp = np.array(state.board).reshape(size, size)
         x, y = np.where(tmp == 0)
         action_list = []
         if (x > 0):
@@ -86,9 +80,9 @@ class NPuzzle(object):
     def result(self, state, action):
         """ Returns the NPuzzle board that result from executing the given
         given action on the given NPuzzle board."""
-        tmp = np.array(state.board).reshape(int(sqrt(len(state.board))),int(sqrt(len(state.board))))
-        x, y = np.where(tmp == 0)
-        new = tmp.copy()
+        size = int(sqrt(len(state.board)))
+        new = np.array(state.board).reshape(size, size)
+        x, y = np.where(new == 0)
         if (action == 'UP'):
             new[x, y], new[x-1, y] = new[x-1, y], new[x, y]
             return NPuzzle(new.reshape(new.size).tolist())
@@ -105,21 +99,20 @@ class NPuzzle(object):
     def goal_test(self, state):
         """ Test if NPuzzle is at the end state [0,1,2,...,N-1]."""
         if state.board == np.arange(len(state.board)).tolist():
-        #if np.array_equal(np.ravel(board.board), np.arange(board.board.size)):
             return True
         return False
       
-    def path_cost(self, a, b, c, d):
-        return 0
+    def path_cost(self, c, state1, action, state2):
+        return c + 1
     
     def __repr__(self):
-        return str(self.board)#np.array2string(self.board)
+        return str(self.board)
+    
 
 class NPuzzleState(object):
  
     def __init__(self, state, parent=None, action=None, path_cost=0):
         self.state = state
-        #print("init state\n", self.state,"\n")
         self.parent = parent
         self.action = action
         self.path_cost = path_cost
@@ -160,35 +153,26 @@ class NPuzzleState(object):
         return isinstance(other, NPuzzleState) and self.state == other.state
 
     def __hash__(self):
-        return hash(repr(self.state))
-                #np.array2string(repr(self.state.board)))
-        #return hash(self.__str__())
-    
-    #def __str__(self):
-    #    #print('State is\n', self.state)#.board)
-    #    #self.state
-    #    return np.array2string(self.state)#.board)
-    
-    #def __contains(self, x)__:
+        return hash(str(self.state.board))           
         
-       
+    def __repr__(self):
+        return str(self.state.board)
+        
               
 class Solver:
 
     def __init__(self, initialBoard):
         self.nPuzzleState = NPuzzleState(initialBoard)
-        #print(self.nPuzzleState.state.board)
-        '''
-        path_to_goal = 0
-        cost_of_path = 0
-        nodes_expanded = {}
-        fringe_size = 0
-        max_fringe_size = 0
-        search_depth = 0
-        max_search_depth = 0
-        running_time = 0
-#       max_ram_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss       
-'''
+        #path_to_goal = []
+        #'''cost_of_path = 0
+        #nodes_expanded = {}
+        #fringe_size = 0
+        #max_fringe_size = 0
+        #search_depth = 0
+        #max_search_depth = 0
+        #running_time = 0
+        #max_ram_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss       
+
     def _success(self, node):
         print('Success!')
         print(node.state.board)
@@ -201,39 +185,38 @@ class Solver:
         print('Running Breadth First Search...\n')
         frontier = Queue()
         frontier.enqueue(self.nPuzzleState)
-        print('Frontier empty? ', frontier.empty())
+        #print('Frontier empty? ', frontier.empty())
         explored = set()
         
         while not frontier.empty():
-            print('\nIn Loop...')
+            print('\n\n* * * * *  Looping  * * * * * ')
             node = frontier.dequeue()
-            print('node object?\n', node)
-            print('exploring:\n', node.state)
-            explored.add(node)
-            print('\nNode added to explored set()\n')
+            #print('node object?\n', node)
+            print('Exploring:', node.state)
+            print('frontier', frontier)
+            #print(node)
+            explored.add(hash(node))#hash(str(node.state.board)))
+            print(hash(node) == hash(str(node.state.board)))
+            #print('\nNode added to explored set()\n')
             if node.state.goal_test(node.state):
                 print('checking goal test')
                 return self._success(node)
-            print('after goal_test')
-            print('length of frontier', len(frontier))
+            #print('after goal_test')
+            #print('length of frontier', len(frontier))
+            
             for neighbor in node.neighbors(node.state):
-                print('\n...Looping through neighbors list...', len(node.neighbors(node.state)))
-                print('Neighbor node is NOT in frontier', neighbor not in frontier)
-                print('Neighbor node is NOT in explored', neighbor not in explored)
-                print('frontier length', len(frontier))
-                print('neighbors is\n', neighbor.state)
-                print('neighbors object?\n', neighbor)
-                if neighbor not in frontier and neighbor not in explored:
-                    print('PROGRESSSSSS????')
-                    '''TODO: first pass okay. second pass throwing an error. 
-                    neighbor not in frontier. <= error
-                    problem w/ Queue __contains__? 
-                    Maybe fuck numpy and use lists?'''
+                print('\nChecking neighbor:', neighbor.state)
+                #print('\n...Looping through neighbors list...', len(node.neighbors(node.state)))
+                print('Neighbor node is NOT in frontier:', neighbor not in frontier)
+                print('Neighbor node is NOT in explored:', hash(neighbor) not in explored) #hash(str(neighbor.state.board)) not in explored)
+                #print('frontier length', len(frontier))
+                #print('neighbors object?\n', neighbor)
+                if neighbor not in frontier and hash(neighbor) not in explored:
+                    print('Adding to frontier', neighbor.state)
+                    #print(explored)
                     frontier.enqueue(neighbor)
-                print('frontier length', len(frontier))
-            #print('Out of for loop')        
-            #print('frontier length', len(frontier))
-            #print(frontier.empty())
+                #print('frontier length', len(frontier))
+            print('Frontier is now:', frontier)
         
         print('wadafaaak')
         return self._failure
@@ -267,6 +250,7 @@ if __name__ == '__main__':
     #print('\nTest 2 goal_test: \n', t2.goal_test(t2))
     #print(t2.actions(t2))
     t3 = NPuzzle([1,2,0,3,4,5,6,7,8])#NPuzzle(np.array([1,2,0,4,5,6,7,8,3]).reshape(3,3))
+    #t3 = NPuzzle([3,1,2,0,4,5,6,7,8])
     #print('\nTest 3 board:\n', t3.board)
     #print(t3.actions(t3))
     bfs = Solver(t3)
