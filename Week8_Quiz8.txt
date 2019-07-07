@@ -1,0 +1,85 @@
+Week 8 Quiz
+ 
+CSP formalization
+10/10 points (graded)
+Formalizing a CSP requires:
+[x]A set of variables
+[x]A set of domains for each variable
+[ ]A set of functions
+[x]A set of constraints
+
+
+
+CSP problem formalization
+10/10 points (graded)
+For the 8-queen example, the second formalization seen in lecture is better than the first formalization because the domain of each variable in the second formalization is smaller which makes it easier to find a solution.
+[x]True correct
+[ ]False
+ 
+ 
+
+Solving CSPs
+10/10 points (graded)
+Solving the CSP means:
+[x]Finding the assignment(s) that satisfy all constraints.
+[ ]Finding the assignment(s) that satisfy some constraints.
+
+
+
+Forward checking
+10/10 points (graded)
+Arc consistency is an improvement of Forward Checking:
+[x]True correct
+[ ]False
+
+
+
+Backtracking search and arc consistency
+10/10 points (graded)
+Check all that apply.
+[x]X → Y is consistent IFF for every value x of X, there is some allowed y.
+[ ]X → Y is consistent IFF for every value y of Y, there is some allowed x.
+[ ]Backtracking search is a Breadth-first search with one variable assigned per node
+[x]Backtracking search is a Depth-first search with one variable assigned per node
+
+
+
+Least Constraining Values (LCV)
+10/10 points (graded)
+Given a variable, LCV chooses the least constraining value, i.e.:
+[x]the one that rules out the fewest values in the remaining variables
+[ ]the one that rules out most values in the remaining variables
+
+
+
+Binary constraints
+10/10 points (graded)
+It is possible to reformulate global constraints (involving 3 or more variables) as binary constraints:
+[x]True correct
+[ ]False
+
+
+
+Arc consistency
+0/10 points (graded)
+In general, when will the arc consistency algorithm stop?
+[x]The algorithm iterates until no more arc inconsistencies remain correct
+[x]The algorithm ends when the queue is empty correct
+[ ]The algorithm stops after it checks all arcs exactly once
+
+
+
+Arc consistency
+10/10 points (graded)
+If any value is deleted from the domain of a variable, then all arcs pointing to that variable must be added because:
+[ ]All arcs pointing to that variables were never added to the queue
+[x]Deleting a value from the domain of one variable may enable more reductions in the domains of the other variables pointing to that variable
+correct
+
+
+
+Arc consistency
+10/10 points (graded)
+In checking the consistency of an arc X_i --> X_j, if D_i, the domain of X_i, is revised down to the empty set, then the CSP has no consistent solution:
+[x]True correct
+[ ]False

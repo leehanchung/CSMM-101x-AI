@@ -1,0 +1,96 @@
+Week 10 Quiz
+
+Q1
+10.0/10.0 points (graded)
+
+
+Consider the above proposition in propositional logic. Is this proposition a:
+[x]tautology?
+[ ]fallacy?
+[ ]contingency?
+
+
+
+Q2
+0.0/10.0 points (graded)
+Among the following propositions, which ones are logically equivalent?
+[x]p↔q correct
+[ ](p∧¬q)∧¬(¬p→¬q)
+[x]¬(p∧¬q)∧(¬p→¬q) correct
+[ ]¬(p∧¬q)∨(¬p→¬q)
+
+Q3
+10.0/10.0 points (graded)
+Let p be a proposition in propositional logic. p : John is not tall and John is thin. What is the ¬p (negation of p)?
+[ ]John is tall or John is thin
+[ ]John is tall and John is not thin
+[ ]John is not tall and John is not thin
+[x]John is tall or John is not thin
+
+
+
+Q4
+10.0/10.0 points (graded)
+The CNF of (p→q)→r is:
+[ ](¬p∨r)∧(¬q∨¬r)
+[x](p∨r)∧(¬q∨r)
+[ ](p∧r)∨(¬q∧r)
+
+
+
+Q5
+10.0/10.0 points (graded)
+Given the following KB:
+KB={P∨Q∨R,¬P∨R,¬Q}
+Using resolution for propositional logic, does KB⊨R?
+[x]Yes correct
+[ ]No
+ 
+ 
+ 
+Q6
+10.0/10.0 points (graded)
+Given the following KB:
+KB={P∨¬Q,¬Q∨R,¬P∨¬R}
+using model checking, does KB⊨Q?
+[ ]Yes
+[x]No correct
+ 
+ 
+ 
+ 
+Q7
+10/10 points (graded)
+Which inference rule is used to make this inference?
+If it snows today, the university will closeThe university is not closed todayIt did not snow today
+[ ]Modus Ponens
+[x]Modus Tollens correct
+
+
+Q8
+10/10 points (graded)
+Which inference rule is used to make this inference?
+If it is rainy, then the pool will be closedIt is rainyThe pool is closed
+[x]Modus Ponens correct
+[ ]Modus Tollens
+
+
+
+Q9
+10/10 points (graded)
+Check all that apply.
+[x]First order logic is more powerful than propositional logical because it can model objects and the relations between them
+[ ]Inference in propositional logic with horn clauses is sound but not complete
+[x]Backward chaining works backwards from the query
+[ ]Logical agents are black box models because the models they build about the world are not intelligible
+
+
+
+Q10
+10/10 points (graded)
+Check all that apply.
+[x]Inference can be cast as a search problem
+[ ]The resolution algorithm uses a proof by contradiction, that is it shows that KB∧¬α is satisfiable 
+[x]A horn clause is a logic proposition of the form: p1∧…∧pn→q
+[x]Every sentence in propositional logic can be written in Conjunctive Normal Form (CNF)
+

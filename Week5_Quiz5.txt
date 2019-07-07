@@ -1,0 +1,77 @@
+Week 5 Quiz
+
+
+Suppose you derived a classification model. The performance you obtained on the training set and the test set are both poor (large error). Check all that apply.
+[x]The model suffers from high-bias.
+[ ]The model overfits the data.
+[x]Adding more complex features may help derive a better model.
+
+
+Multiple Choice
+10/10 points (graded)
+The in-sample error (error of a learning algorithm on the training set) is typically lower than the out-sample error on a test set.
+[x]True correct
+[ ]False
+ 
+
+Multiple Choice
+We can get multiple local optima if we perform a linear regression by minimizing the mean square error.
+[ ]True 
+[x]False correct
+ 
+
+Multiple Choice
+10/10 points (graded)
+With K-NN, one can represent only linear decision boundaries.
+[ ]True
+[x]False correct
+ 
+
+ 
+Multiple Choice
+10/10 points (graded)
+If the performance of a classification model on the test set is poor, you can just re-calibrate your model parameters to achieve a better model.
+[ ]True
+[x]False correct
+ 
+
+ 
+Multiple Choice
+10/10 points (graded)
+The examples in a validation set are used to train the classification model.
+[ ]True
+[x]False correct
+ 
+
+Multiple Choice
+10/10 points (graded)
+To learn a regression model you can either use gradient descent or normal equation.
+[x]True correct
+[ ]False
+ 
+
+ 
+Multiple Choice
+10/10 points (graded)
+Because it is straightforward to calculate in just one step, using normal equation is the preferred method when the feature space is large (e.g., 10,000 features).
+[ ]True
+[x]False correct
+ 
+
+ 
+Multiple Choice
+0/10 points (graded)
+If the learning rate α is small enough, gradient descent converges very quickly.
+
+
+[ ]True incorrect
+[x]False correct
+ 
+
+ 
+Checkboxes
+10/10 points (graded)
+What is the difference between classification and regression? Check all that apply.
+[ ]Classification requires labeled data, while regression requires unlabeled data.
+[ ]Classification has numerical values as labels while regression has categorical (discrete) labels.
+[x]Regression has numerical values as labels while classification has categorical (discrete) labels.

@@ -1,0 +1,92 @@
+Week 7 Quiz
+ 
+Association Rules
+0/10 points (graded)
+In association rules, if an itemset is frequent, then all its supersets are frequent.
+[x]False 
+[ ]True 
+
+
+Association Rules
+0/10 points (graded)
+Check all that apply.
+[x]The bottleneck in finding strong association rules is in finding frequent itemsets. correct
+[x]Deriving association rules from frequent itemsets does not require scanning the dataset. correct
+[ ]The search space of frequent itemsets is a lattice of size 2^(number of transactions).
+[x]The search space of frequent itemsets is a lattice of size 2^(number of items). correct
+[x]Extracting quantitative association rules is an optimization problem, because it is not possible to do a systematic search of association rules involving numerical variables. correct
+
+
+Association Rules
+10/10 points (graded)
+Consider the table above summarizing a larger transaction dataset with only two items. Let 2%milk refer to the transactions containing 2% milk, and let 2%milk refer to the transactions without 2% milk. Similarly, whole milk refers to the transactions containing whole milk, while whole milk refers to the transactions without whole milk. Suppose we are interested in the rule whole milk → 2%milk. Is this rule strong? Assume a MinSup=30% and a MinConf=60%.
+[x]True 
+[ ]False
+ 
+Association Rules
+10/10 points (graded)
+Consider the same table above. What kind of relationship exists between the items whole milk and 2% milk?
+(Hint: Use the interest measure)
+[ ]Independent
+[x]Negatively correlated
+[ ]Positively correlated
+
+
+Neural Networks
+10/10 points (graded)
+Check all that apply.
+[x]"Training" a neural network means learning the weights in the network.
+[ ]"Backpropagation" means propagating the errors forward.
+[x]"Feed forward" means propagating the examples through the network and computing the output from every neuron.
+
+
+Neural Networks
+10/10 points (graded)
+Neural networks can solve both linear and non-linear classification problems.
+[x]True correct
+[ ]False
+ 
+ 
+Neural Networks
+0/10 points (graded)
+Check all that apply.
+[ ]A neural network can overfit the training data if the network is too simple; that is, if it has a very small number of units.
+[x]A neural network can overfit the training data if the network is too complex; that is, if it has a very large number of units. correct
+[x]Overfitting in neural networks can be reduced by using cross-validation to choose the number of neurons. correct
+
+
+Clustering with K-means
+10/10 points (graded)
+Check all that apply.
+[x]The basic K-means algorithm requires setting up the parameter K (number of clusters) apriori.
+[x]In K-means, we assume that each cluster fits a Gaussian distribution (normal distribution).
+[x]We can set K to optimally cluster the data by starting with a small number of clusters, and then iteratively splitting them until all clusters fit a normal distribution.
+[x]A clustering is good if it has a high intra-cluster similarity and a low inter-cluster similarity.
+[ ]A clustering is good if it has a low intra-cluster similarity and a high inter-cluster similarity.
+
+
+Clustering with K-means
+10/10 points (graded)
+Consider the unlabeled data below.
+
+
+Which of the following clustering will k-means clustering produce for k = 2?
+[ ]Clustering 1:
+
+
+[x]Clustering 2:
+
+
+
+
+Clustering with K-means
+10/10 points (graded)
+Consider the unlabeled data below.
+
+
+Which of the following clustering will k-means clustering produce for k = 2?
+[ ]Clustering 1:
+
+
+[x]Clustering 2:
+

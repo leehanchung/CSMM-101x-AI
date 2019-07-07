@@ -1,0 +1,94 @@
+Week 11 Quiz
+
+
+
+Q1
+10/10 points (graded)
+The higher the probability of the test corpus the more perplex is the language model.
+[ ]True
+[x]False correct
+
+
+
+Q2
+0/10 points (graded)
+In calculating the probability of a word, a trigram model looks at the three previous words.
+[ ]True incorrect
+[x]False correct
+
+
+
+Q3
+10/10 points (graded)
+Check all that apply:
+[x]There is high interest in natural language processing nowadays
+[x]There are vast amounts of text around on the web
+[x]With tools like Siri and Alexa Echo, using natural language is becoming increasingly common
+[ ]Learning from text is a low hanging fruit because human language is so simple
+[x]Language is difficult to model in AI
+
+
+
+Q4
+10/10 points (graded)
+There has been significant progress in machine translation over the last decade, because statistical models were trained to learn how to translate from a very large dataset of good quality translations.
+[x]Yes correct
+[ ]No
+
+
+
+Q5
+10/10 points (graded)
+Text classification uses m-estimate of the probabilities: p(wk|cj)=nk+1nj+|Vocabulary|. The use of m-estimate is a smoothing technique.
+[x]Yes correct
+[ ]No
+
+
+
+Q6
+10/10 points (graded)
+The idea behind bigram models is to look only one word in the past. That is, approximate the probability P(wk|w1⋯wk−1) with P(wk|wk−1)
+[x]True correct
+[ ]False
+
+
+
+Q7
+10/10 points (graded)
+Check all that apply:
+[x]A language model is a probability distribution over sequences of words
+[x]Smoothing is a modification of the probability of words to avoid probabilities of zero
+[x]Perplexity asseses how confused is the language model when applied on a new corpus. If the model is confused, the perplexity will be high.
+
+
+
+Q8
+10/10 points (graded)
+Below are the steps in deriving the language model probabilities using trigrams. Please put them in order:
+
+[2]a. Make Markov independence assumptions p(wi|w1,w2...wi−2,wi−1)=p(wi|wi−2,wi−1)
+[3]b. Smooth the estimates
+[1]c. Expand p(w1,w2...wn) using the chain rule
+
+
+
+
+Q9
+0/10 points (graded)
+According to this week's suggested reading "AI’s Language Problem" (Check all that apply):
+[x]What makes text different from images is that unlike images, two words can have same meaning but look completely different correct
+[ ]It is easy to give machines human skills like creativity and abstraction
+[x]A problem with applying advanced machine learning methods to text is that a same word can have different meanings in different contexts correct
+[x]Deep learning shows great promise to generalize from vision and games to understanding text correct
+
+
+
+Q10
+10/10 points (graded)
+According to this week's suggested reading "AI’s Language Problem" (Check all that apply):
+[ ]Advanced deep learning systems not only excel in recognizing images and playing games, they are intelligible, that is we understand well how they come up with their answers
+[x]The ultimate AI system would not only be able to provide answers, it would also be able to communicate with human language
+[x]The ultimate AI system would not only be able to provide an answers, it would also be able to provide explanations
+[x]Today, Google search algorithms embed a functionality to get the meaning of text rather than just leveraging keywords and links between webpages
+
+

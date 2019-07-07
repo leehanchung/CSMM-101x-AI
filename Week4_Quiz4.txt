@@ -1,0 +1,107 @@
+Week 4 Quiz: Adversarial Search and Games
+
+Zero-sum games
+10.0/10.0 points (graded)
+Check all that apply. In zero-sum games:
+[x]One agent maximizes one single value, while the other minimizes it.
+[ ]Each agent tries to maximize independent values.
+[x]Agents take turns.
+[ ]Each agent helps the other one win the game.
+correct
+
+Show Answer
+SubmitSubmit Your Answer You have used 2 of 2 attempts
+Minimax
+10.0/10.0 points (graded)
+The minimax algorithm uses a recursive computation of the minimax values of each successor state. The recursion proceeds all the way down to the leaves of the tree. The minimax values are then backed up through the tree.
+[ ]False
+[x]True 
+correct
+ 
+Show Answer
+SubmitSubmit Your Answer You have used 1 of 1 attempt
+Adversarial search
+0.0/10.0 points (graded)
+Check all that apply
+[ ]We can’t always search the leaves in game trees because we are limited in time
+[x]Both Minimax and alpha-beta pruning adopt a depth first search strategy
+[ ]Searching using minimax without evaluation function has to go all the way down to the leaves except when alpha-beta pruning is used.
+[x]Searching using minimax without evaluation function has to go all the way down to the leaves even when alpha-beta pruning is used.
+incorrect
+
+Show Answer
+SubmitSubmit Your Answer You have used 1 of 1 attempt
+Consider the following search tree.  
+
+
+
+Minimax
+10.0 points possible (graded)
+Using minimax, which of the three possible moves should MAX take at the root node?
+[x]A1
+[ ]A2
+[ ]A3
+
+
+Minimax
+Using minimax, what is the value of MAX at the root?
+[ ]5
+[ ]14
+[x]7
+[ ]12
+
+Minimax with alpha-beta pruning
+Using minimax with alpha-beta pruning, what branches are pruned? Check all that apply:
+[ ]A1
+[ ]A2
+[ ]A3
+[ ]A11
+[ ]A12
+[ ]A13
+[ ]A21
+[x]A22
+[x]A23
+[ ]A31
+[x]A32
+[x]A33
+wrong
+
+
+
+Alpha-beta pruning
+10.0 points possible (graded)
+Check all that apply regarding Alpha-beta pruning:
+[x]Both Alpha and Beta are sent down the tree
+[ ]Min updates Alpha and Max updates Beta
+[x]Min updates Beta and Max updates Alpha
+[ ]Min and Max update both Alpha and Beta
+[x]Alpha is the current lower bound on MAX's outcome and Beta is the current upper bound on MIN's outcome
+[x]MAX will never choose a move that could lead to a worse score (for MAX) than Alpha.
+[ ]MIN will always choose a move that could lead to a better score (for MAX) than Beta.
+[ ]Prune remaining branches at a node whenever Alpha is less than Beta
+
+
+
+Move ordering
+10.0 points possible (graded)
+When the best moves are on the left of the game tree, the search can go twice as deep as minimax in the same amount of time:
+[x]True
+[ ]False
+
+
+
+Utility and Eval functions
+0.0/10.0 points (graded)
+The utility function utility(s) is replaced by an evaluation function eval(s) to estimate the value of the current state s. Check all that apply:
+[x]Because there is a time constraint for each move
+[x]It turns non-terminal nodes into terminal leaves
+[ ]The evaluation function does not have to rank terminal states in the same way as the true utility function
+
+
+
+Expectiminimax
+0.0/10.0 points (graded)
+Comparing Expectiminimax to Minimax, check all that apply:
+[x]Expectiminax generalizes Minimax to handle chance nodes
+[x]For a chance node, Expectiminimax returns the expected value of its successors
+[x]For a non-chance node, Expectiminax returns the highest of its successors for Max and the lowest for Min.

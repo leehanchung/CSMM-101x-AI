@@ -1,0 +1,95 @@
+Week 6 Quiz
+
+True/False
+16.3/16.3 points (graded)
+When a decision tree is fully grown, it is likely to overfit the training data.
+[ ]False
+[x]True correct
+ 
+
+True/False
+0.0/10.0 points (graded)
+Logistic regression is a linear classification method.
+[ ]False incorrect
+[x]True
+ 
+
+Multiple choice
+10.0 points possible (graded)
+The idea of boosting is to train weak learners on weighted training examples. Check all that apply.
+[ ]Give large weights to easy examples to get rid of them
+[ ]Use any classifier as far as its accuracy is slightly worse than random
+[x]The classification output is a majority voting of all weak classifiers outputs
+[x]Give large weights to hard examples to focus on those in the next steps
+
+
+
+True/False
+10.0/10.0 points (graded)
+A decision tree generated from unbalanced training data may be biased towards the majority class.
+[ ]False
+[x]True
+ 
+
+Checkboxes
+10.0 points possible (graded)
+Check all that apply.
+[ ]Naive Bayes classifier models p(y|x) and p(y) and then used Bayes rule to obtain p(x|y)
+[x]Naive Bayes classifier models p(x|y) and p(y) and then used Bayes rule to obtain p(y|x)
+[ ]Naive Bayes classifier models p(x|y) and p(x) and then used Bayes rule to obtain p(x|y)
+[ ]Naive Bayes classifier is a discriminative method.
+[x]Naive Bayes classifier is a generative method.
+
+
+
+True/False
+10.0/10.0 points (graded)
+a b f
+1 1 1 
+1 0 0
+0 1 1
+0 0 0
+
+Can the boolean function f be represented with a perceptron?
+[x]True 
+[ ]False
+ 
+
+Checkboxes
+0/10 points (graded)
+Consider the toy example in slide 8, decision trees handout. Suppose there is one additional feature "application_number". Suppose all the examples in this dataset have different values {v1, v2, v3, ..., v14} for application_number, corresponding to the order they appear in the table.
+[ ]application_number will have the lowest gain and hence will never be picked at the root
+[x]application_number will be picked at the root as a first choice to split the data because it has the highest gain correct
+[x]application_number is the most discriminative feature correct
+[x]application_number is a useless feature and should be discarded correct
+
+
+Incorrect (0/10 points) Review
+Checkboxes
+10.0/10.0 points (graded)
+Consider the toy example in slide 8, decision trees handout. Suppose there is one additional feature "application_number". Suppose all the examples in this dataset have different values {v1, v2, v3, ..., v14} for application_number, corresponding to the order they appear in the table.
+
+Now, we define a new feature called "even_or_odd", which takes on the value "even" for {v2, v4, v6, ..., v14}, and takes on the value "odd" for {v1, v3, v5, ..., v13}.
+[ ]even_or_odd will have the same gain as "Highest Degree"
+[ ]even_or_odd will have the same gain as "Work Experience"
+[x]even_or_odd will have the same gain as "Favorite Language"
+[ ]even_or_odd will have the same gain as "Needs Work Visa"
+
+
+Checkboxes
+10.0/10.0 points (graded)
+Check all that apply.
+[x]The perceptron is an iterative classification method
+[ ]The perceptron will always converge even if the data is not linearly separable
+[ ]The percetron is a generative classification method
+[x]The perceptron starts with a random hyperplane then adjust its weights to separate the data
+[x]The perceptron is the simplest neural network
+
+
+Checkboxes
+10.0 points possible (graded)
+Check all that apply.
+[ ]Logistic regression optimizes a non-convex function
+[x]Logistic regression classification outputs a value between 0 and 1
+[ ]Logistic regression classification outputs a value that can be outside [0, 1]
+[ ]Logistic regression is a generative method

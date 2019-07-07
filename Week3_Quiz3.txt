@@ -1,0 +1,119 @@
+Week 3 Quiz:
+
+Optimality #1
+10/10 points (graded)
+Consider graph search algorithms for some search space. Suppose the branching factor b is finite, the shallowest goal is at finite depth d, and step costs are finite, greater than some small positive constant, but not necessarily all equal. Check all that apply:
+
+[ ]Depth-First Search is optimal
+[ ]Depth-Limited Search (limit > d) is optimal
+[ ]Iterative-Deepening Search is optimal
+[ ]Breadth-First Search is optimal
+[x]Uniform-Cost Search is optimal
+
+
+Optimality #2
+10.0/10.0 points (graded)
+Consider graph search algorithms for some search space. Suppose the branching factor b is finite, the shallowest goal is at finite depth d, and step costs are finite, positive, and all identical. Check all that apply:
+
+[ ]Depth-First Search is optimal
+[ ]Depth-Limited Search (limit > d) is optimal
+[x]Iterative-Deepening Search is optimal
+[x]Breadth-First Search is optimal
+[x]Uniform-Cost Search is optimal
+
+
+Admissibility #1
+10.0/10.0 points (graded)
+Consider a finite search space. Suppose step costs are finite and greater than some small positive constant, but not necessarily all equal. Suppose h(n) is an admissible heuristic. Check all that apply:
+
+
+[x]h(n) never overestimates the true cost h*(n) from n to the goal
+[ ]f(n) never overestimates the true cost h*(n) from n to the goal
+[x]f(n) never overestimates the true cost g(n) + h*(n) from the root to the goal through n
+[ ]h(n) is "optimistic" because it acts as an upper bound on the true cost of reaching the goal
+[ ]h(n) is "optimistic" because it always underestimates the true cost of reaching the goal
+[ ]h(n) is "optimistic" because it is greedy
+
+
+Admissibility #2
+[x]h_SLD(n) is admissible
+[ ]h_SLD(n)^2 is admissible
+[x]sqrt(h_SLD(n)) is admissible
+[ ]h_SLD(n)^2 - 99 * h_SLD(n) is admissible
+[ ]0 is admissible
+
+
+Completeness #1
+10.0/10.0 points (graded)
+Consider graph search algorithms for an infinite* search space. Suppose the branching factor b is finite, the shallowest goal is at finite depth d, step costs are finite, greater than some small positive constant, but not necessarily all equal. Check all that apply:
+
+* As an example of an infinite search space, consider the 3-dimensional integer lattice Z^3; that is, the lattice in the Euclidean space R^3 whose lattice points are ordered triples of integers. A "state" may consist of a point in space (i.e. an ordered triple in Z^3), and a "transition" may consist of moving a certain number of units in the positive or negative directions parallel to one of the coordinate axes.
+
+
+[ ]Depth-First Search is complete
+[x]Depth-Limited Search (limit > d) is complete
+[x]Iterative-Deepening Search is complete
+[x]Breadth-First Search is complete
+[x]Uniform-Cost Search is complete
+[x]A-Star Search is complete
+
+
+Completeness #2
+10.0/10.0 points (graded)
+Consider graph search algorithms for a finite search space. Suppose the branching factor b is finite, the shallowest goal is at finite depth d, step costs are finite, greater than some small positive constant, but not necessarily all equal. Check all that apply:
+
+
+[x]Depth-First Search is complete
+[x]Depth-Limited Search (limit > d) is complete
+[x]Iterative-Deepening Search is complete
+[x]Breadth-First Search is complete
+[x]Uniform-Cost Search is complete
+[x]Greedy Best-First Search is complete
+[x]A-Star Search is complete
+
+
+
+Greedy Best-First Search #1
+0.0/10.0 points (graded)
+In lecture, we see an example of a heuristic for the map problem; that is, the straight line distances h_SLD(n) from n to the goal. Consider Greedy Best-First Search applied to this instance of the search problem, using the straight-line distance heuristic (in particular, note that no edges are less than unit cost). Check all that apply:
+
+
+[ ]It always manages to reach the goal in the fewest number of steps
+[ ]It always manages to reach the goal through the least costly path
+[x]At each step it tries to get as close to the goal as possible
+[ ]At each step it always gets closer to the goal
+
+
+Greedy Best-First Search #2
+0.0/10.0 points (graded)
+Consider Greedy Best-First Search on a search space where the branching factor b is finite, the shallowest goal is at finite depth d, step costs are finite, greater than some small positive constant, but not necessarily all equal. Check all that apply:
+
+[x]Evaluates nodes by using just the heuristic function
+[ ]Evaluates nodes by using the heuristic function plus path costs
+[ ]Is complete if the heuristic is admissible
+[x]Is complete if the search space is finite
+[ ]Is optimal if the heuristic is admissible
+[ ]Is optimal if the search space is finite
+
+
+A-Star Search #1
+10.0/10.0 points (graded)
+In lecture, we see an example of a heuristic for the map problem; that is, the straight line distances h_SLD(n) from n to the goal. Consider A-Star Search applied to this instance of the search problem, using the straight-line distance heuristic (in particular, note that no edges are less than unit cost). Check all that apply:
+
+
+[ ]It always manages to reach the goal in the fewest number of steps
+[x]It always manages to reach the goal through the least costly path
+[ ]At each step it tries to get as close to the goal as possible
+[ ]At each step it always gets closer to the goal
+
+
+A-Star Search #2
+10.0/10.0 points (graded)
+Consider A-Star Search on a tree of finite depth, where the branching factor b is finite, the shallowest goal is at finite depth d, step costs are finite, greater than some small positive constant, but not necessarily all equal, and the tree contains no duplicate nodes. Check all that apply. It:
+
+
+[ ]Evaluates nodes by using just the heuristic function
+[x]Evaluates nodes by using the heuristic function plus path costs
+[x]Is optimal if it has an admissible heuristic
+[x]Becomes Uniform-Cost Search if the heuristic h(n) = 0 for all n
+[ ]Becomes Uniform-Cost Search if the path cost g(n) = 0 for all n
